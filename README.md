@@ -1,23 +1,29 @@
 # prometheus.k8s
 ###The Goal
 The purpose of this task is to deploy Prometheus on a Kubernetes cluster and to achieve this task's goal we should master k8s concepts...
+<br>
 ###### So what is Kubernetes in a simple way ?
 It's a container orchestration technology that manages clustered environment.
+<br>
 ###### What is a container ? 
 It's an isolated environment in which you can run your application.. 
 ###Steps before 
 Before jumping to details about k8s let us give a hit about a tool that we need to continue our scenario which is **docker**
+<br>
 ###### So what is docker ?
 It's a tool designed to manage containers by providing the compatibility ..as simple as that
- ###Demo and steps
+ <br>
+ ### Demo and steps
  Before we start with k8s you should install docker because it's required for this demo you can check here : [https://docs.docker.com/install/linux/docker-ce/ubuntu/]
 ###### 1- Setting up the environment :
 Since we are working on a learning environment we need to set up a **Kubernetes** **cluster** on our local machine.Actually we will use **Minikube** to do this.
-To install Minikube :
+To install Minikube : 
+
+
 ```
-first of all you need to install a VM such as VirtualBox
+first of all you need to install a VM such as VirtualBox <br>
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
-&& chmod +x minikube
+&& chmod +x minikube 
 sudo install minikube /usr/local/bin
 minikube start
 ```
@@ -31,11 +37,7 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 kubectl version
 ```
 ###### 2- Create the deployment yaml file of Prometheus
-Before we start we should know that Kubernetes has many objects :
-- Pod : it's a single instance of the application. 
-- ReplicaSet : Runs multiple instance of a single pod for providinf Lb and HA
-- Deployment : represents the hole specification of the application that is running on the cluster ...
- - Service : that gives an external access to the container's port via nodePort..<br> <br>
+
  We should know that Kubernetes uses yaml files as inputs to create it's object that's why we need a yaml deployment file and it's structure should look like this : <br>
  ```
  apiVersion: apps/v1
@@ -60,7 +62,7 @@ Before we start we should know that Kubernetes has many objects :
  ```
  After preparing the deployment yaml file you sould tape those commands :
  ```
- kubectl create -f prometheus-dep.yaml
+ kubectl apply -f prometheus-dep.yaml
   ```
   See if deployment has bees created :
   ```
@@ -89,9 +91,9 @@ Before we start we should know that Kubernetes has many objects :
       selector:
          app: prometheus	
    ```
-   Nb : Be sure that Prometheus is already running :
+   After preparing the Service yaml file you sould tape this command :
    ```
-   service prometheus status
+       kubectl apply -f prometheus-service.yaml
    ```
    you can check by :
    ```
@@ -101,7 +103,5 @@ Before we start we should know that Kubernetes has many objects :
    ```
     minikube ip 
    ```
-   go to browser and search : [192.168.99.100:30008] <br> 
-   You can see that **Prometheus** is running on the **Kubernetes** cluster
-   <br>
-   **Nb** : 192.168.99.100 is my minikube ip adress you may have a different one on your machine 
+   go to browser and search : $(minikube ip):30008 <br> 
+
