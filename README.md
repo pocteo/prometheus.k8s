@@ -1,5 +1,5 @@
 # prometheus.k8s
-###The Goal
+### The Goal
 The purpose of this task is to deploy Prometheus on a Kubernetes cluster and to achieve this task's goal we should master k8s concepts...
 <br>
 ###### So what is Kubernetes in a simple way ?
